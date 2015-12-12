@@ -113,8 +113,8 @@ def swissPairings():
     that has not yet received a bye in a previous round, is given a bye.
     The bye player is added to the pairings list as a player who plays himself.
     If the lowest rank cannot be given a bye because it stops a complete set
-    of pairings from being made, then the next lowest rank without a previous bye
-    is attempted, and so on.
+    of pairings from being made, then the next lowest rank without a previous
+    bye is attempted, and so on.
 
     Returns:
       A list of tuples, each of which contains (id1, name1, id2, name2)
@@ -155,8 +155,8 @@ def swissPairings():
     # The while loop is only useful when there are an odd number of players.
     # If there are an odd number of players and an iteration cannot find
     # a complete set of pairs, the next available possible bye player
-    # will be used as the bye player, and another pairing attempt will be 
-    # made. 
+    # will be used as the bye player, and another pairing attempt will be
+    # made.
     while len(pairs) < all_paired_count:
         # clear list of pairings
         del pairs[:]
@@ -194,9 +194,10 @@ def tryPairing(start, all_paired_count, pairs, possible_pairs):
         Recursion is used since multiple attempts at pairing may be needed.
         As we get near the end of the possible pairs list we may find
         that a player cannot be paired because all of the possible players that
-        the player can be paired with are already matched up with other players 
+        the player can be paired with are already matched up with other players
         in the pairs list. When this happens, recursion allows us to back up,
-        remove the last pair added, and try again with a different possible pair.
+        remove the last pair added, and try again with a different possible
+        pair.
 
     Args:
         start: position in list of possible pairs to start pairing.
@@ -211,7 +212,7 @@ def tryPairing(start, all_paired_count, pairs, possible_pairs):
     """
     for i in range(start, len(possible_pairs)):
         (id1, name1, id2, name2) = possible_pairs[i]
-        
+
         # If none of the players in the possiible pair have already been added
         # to the pairs list, then we can add the pair.
         if not any(id1 in (p[0], p[2]) or id2 in (p[0], p[2]) for p in pairs):
@@ -253,7 +254,7 @@ def possibleByePlayers():
 
 def possiblePairings():
     """Get the list of possible pairings for a round.
-        A possible pairing is two players that have not played each other in 
+        A possible pairing is two players that have not played each other in
         a previous round.
 
     Returns:

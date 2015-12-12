@@ -85,9 +85,8 @@ def testStandingsBeforeMatches():
     if set([name1, name2]) != set(["Melpomene Murray", "Randy Schwartz"]):
         raise ValueError("Registered players names should appear in standings,"
                          " even if they have no matches played.")
-    print ("6. Newly registered players appear in the standings"
-        "with no matches.")
-        
+    print ("6. Newly registered players appear in the standings "
+           "with no matches.")
 
 
 def testReportMatches():
@@ -150,7 +149,7 @@ def testByes():
     if pid1 != pid2 and pid3 != pid4:
         raise ValueError(
             "No bye was assigned by swissPairings in 3 player tournament.")
-    print "9. Bye was assigined in 3 player tournament."
+    print "9. Bye was assigined in a 3 player tournament."
 
 
 def testDraws():
@@ -167,7 +166,7 @@ def testDraws():
     for (id, name, wins, draws, omw, matches, byes, rank) in standings:
         if draws != 1:
             raise ValueError("Each player should have 1 draw recorded.")
-    print "10. After reporting drawn matches, player standings shows draws."
+    print "10. After reporting drawn matches, player standings show draws."
 
 
 def testOpponentWins():
@@ -185,8 +184,8 @@ def testOpponentWins():
         if wins + omw != 1:
             raise ValueError(
                 "After 1 match a player should have a win or an opponent win.")
-    print ("11. After 1 match, the player standings show that each player"
-        "has a win or an opponent win.")
+    print ("11. After 1 match, the player standings show that each player "
+           "has a win or an opponent win.")
 
 
 def simTournament(player_count=None):
