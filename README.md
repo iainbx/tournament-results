@@ -1,15 +1,15 @@
 # Tournament Results Project
-A Python module that uses a PostgreSQL database to manage a Swiss style tournament.
+A Python module that uses a PostgreSQL database to manage a Swiss style tournament. ...
 The module allows players to be registered, rounds of matches to be computed,
  match results to be recorded, and standings to be viewed.
 
 ## Swiss Style
 The Swiss system allows all players to play in each round of a tournament, whilst
-keeping a small number of rounds for the tournament. 
-It achieves this by pairing players with identical or similar tournament scores in each round.
-This allows a winner to be determined in fewer rounds.
+keeping the number of rounds in the tournament small. 
+It achieves this by pairing players with identical or similar tournament scores
+ in each round, allowing a winner to be determined in fewer rounds.
 
-The rules implemented in the pairing algorithm of this API are:
+The rules implemented in the pairing algorithm of this module are:
 * Each player is paired with another player with the same score,
 or as close as possible, in a round.
 * Players can only play each other once in a tournament.
@@ -35,50 +35,51 @@ Clone this repository on the command line
 git clone https://github.com/iainbx/tournament-results.git
 ```
 
-## Files
+### Files
 The repository contains the following files.
-###tournament.sql
+####tournament.sql
 Contains the database schema used by the module.
-###tournament.py
+####tournament.py
 The Python module for managing a tournament.
-###tournament_test.py
+####tournament_test.py
 Unit tests and system tests for the tournament module.
 
-## Usage
 ###Database Setup
-To create the tournament database and its tables and views in PostgreSQL,
-run the following psql command on the command line
+To create the tournament database in PostgreSQL, with its tables and views,
+run the following psql command on the command line.
 ```Shell
 psql -f tournament.sql
 ```
+## Usage
 
 ###Unit Tests
-Once the database has been successfully setup,
+Once the database has been successfully created,
 you can run the unit tests for the Python module with the following python command on the 
-command line
+command line.
 ```Shell
 python tournament_test.py
 ```
 
 ###System Tests
-You can also perform a system test that will play a tournament with random match results.
-To do this, start the python interpreter with the *python* command on the command line.
+To perform a system test that will play a tournament with random match results,
+ start the python interpreter with the `python` command on the command line.
 Then enter the following commands in the python interpreter 
-to simulate a 3 player tournament
+to simulate a 3 player tournament.
 ```Python 
 import tournament_test
 tournament_test.simTournament(3)
 ``` 
-Once the simulation has finished you can view the player standings in a pretty format
+Once the simulation has finished you can view the player standings in a readable format
 by using the psql command line interpreter. Start the psql interpreter in another 
-command line window (or exit the python interpreter using Ctrl-D) by typing the *psql*
+command line window (or exit the python interpreter using Ctrl-D) by typing the `psql`
 command on the command line. Then enter the following commands in the psql interpreter 
-to connect to the tournament database and query the standings view
+to connect to the tournament database and query the standings view.
 ```PLpgSQL
 \c tournament
 select * from standings order by rank, opponent_wins desc;
 ```
-you should see something like this, with the highest ranking player listed first
+The select query should return something like this,
+with the highest ranking player listed first.
 ```
  id |   name    | wins | draws | opponent_wins | played | byes | rank
 ----+-----------+------+-------+---------------+--------+------+------
@@ -96,8 +97,8 @@ for x in range(3):
     tournament_test.simTournament()
 
 ``` 
-and you should see output similar to this
-```Python
+The simTournament() function will produce output similar to this.
+```Shell
 INFO:root:Simulating a tournament with 36 players...
 INFO:root:Playing round 1
 INFO:root:Playing round 2
@@ -159,3 +160,38 @@ Given the existing set of registered players and the matches they have played,
 generates and returns a list of pairings according to the Swiss system. 
 Each pairing is a tuple (id1, name1, id2, name2), giving the ID and name of 
 the paired players. 
+
+A typical use of the module to manage a tournament would look like the following.
+```Shell
+vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python
+Python 2.7.6 (default, Jun 22 2015, 18:00:18)
+[GCC 4.8.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import tournament
+>>> # delete data for previous tournament
+... tournament.deleteMatches()
+>>> tournament.deletePlayers()
+>>> # register players
+... tournament.registerPlayer("Kirk")
+>>> tournament.registerPlayer("Spock")
+>>> tournament.registerPlayer("McCoy")
+>>> tournament.registerPlayer("Scotty")
+>>> # get pairings for a round
+... tournament.swissPairings()
+[(263, 'Kirk', 264, 'Spock'), (265, 'McCoy', 266, 'Scotty')]
+>>> # record that Kirk and Spock drew their match
+... tournament.reportMatch(263,264,None)
+>>> # record that McCoy beat Scotty
+... tournament.reportMatch(265,266,265)
+>>> # get pairings for next round
+... tournament.swissPairings()
+[(265, 'McCoy', 264, 'Spock'), (263, 'Kirk', 266, 'Scotty')]
+>>> # record that Spock beat McCoy
+... tournament.reportMatch(265,264,264)
+>>> # record that Kirk and Scotty drew
+... tournament.reportMatch(263,266,None)
+>>> # see who won
+... tournament.playerStandings()
+[(264, 'Spock', 1L, 1L, Decimal('1'), 2L, 0L, 0.5), (263, 'Kirk', 0L, 2L, Decimal('1'), 2L, 0L, 1.0), (265, 'McCoy', 1L, 0L, Decimal('1'), 2L, 0L, 1.0), (266, 'Scotty', 0L, 1L, Decimal('1'), 2L, 0L, 1.5)]
+>>> # Spock wins of course
+```
