@@ -1,7 +1,7 @@
 # Tournament Results Project
 A Python module that uses a PostgreSQL database to manage a Swiss style tournament.<br/>
 The module allows players to be registered, rounds of matches to be computed,
- match results to be recorded, and standings to be viewed.
+ match results to be recorded, and player standings to be viewed.
 
 ## Swiss Style
 The Swiss system allows all players to play in each round of a tournament, whilst
@@ -45,7 +45,7 @@ The Python module for managing a tournament.
 Unit tests and system tests for the tournament module.
 
 ###Database Setup
-To create the tournament database in PostgreSQL, with its tables and views,
+To create the tournament database in PostgreSQL, with it's tables and views,
 run the following `psql` command on the command line.
 ```Shell
 psql -f tournament.sql
@@ -62,17 +62,16 @@ python tournament_test.py
 
 ###System Tests
 To perform a system test that will play a tournament with random match results,
- start the python interpreter with the `python` command on the command line.
-Then enter the following commands in the python interpreter 
-to simulate a 3 player tournament.
+ start the Python interpreter with the `python` command on the command line.
+Then, enter the following commands in the interpreter to simulate a 3 player tournament.
 ```Python 
 import tournament_test
 tournament_test.simTournament(3)
 ``` 
 Once the simulation has finished you can view the player standings in a readable format
-by using the psql command line interpreter. Start the psql interpreter in another 
-command line window, or exit the python interpreter using Ctrl-D. Then type the `psql`
-command on the command line. Next, enter the following commands in the psql interpreter 
+by using the PostgreSQL interpreter. Start the interpreter in another 
+command line window, or exit the Python interpreter using Ctrl-D. Then, type the `psql`
+command on the command line. Next, enter the following commands in the interpreter 
 to connect to the tournament database and query the standings view.
 ```PLpgSQL
 \c tournament
@@ -89,15 +88,16 @@ with the highest ranking player listed first.
 (3 rows)
 ```
 To simulate a tournament with a random number of players and random match results, you can
-call the simTournament() function without any arguments. 
-So, to simulate 3 random tournaments, you could do something like this in the python interpreter
+call the _simTournament()_ function without any arguments. 
+So, to simulate 3 random tournaments, you could do something like this in the Python
+ interpreter.
 ```Python 
 import tournament_test
 for x in range(3):
     tournament_test.simTournament()
 
 ``` 
-The simTournament() function will produce output similar to this.
+The _simTournament()_ function will produce output similar to this.
 ```
 INFO:root:Simulating a tournament with 36 players...
 INFO:root:Playing round 1
