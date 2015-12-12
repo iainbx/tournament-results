@@ -1,5 +1,5 @@
 # Tournament Results Project
-A Python module that uses a PostgreSQL database to manage a Swiss style tournament. ...
+A Python module that uses a PostgreSQL database to manage a Swiss style tournament.<br/>
 The module allows players to be registered, rounds of matches to be computed,
  match results to be recorded, and standings to be viewed.
 
@@ -25,12 +25,12 @@ used to determine a winner.
 
 ## Prerequisites
 
-The module requires **Python 2.7** and **PostgreSQL** to to be already installed.
+The module requires **Python 2.7** and **PostgreSQL** to to be already installed.<br/>
 The module also depeneds on the **psycopg2** Python module to access the PostgreSQL
 database server.
 
 ## Installation
-Clone this repository on the command line
+Clone this repository on the command line, to get the files.
 ```Shell
 git clone https://github.com/iainbx/tournament-results.git
 ```
@@ -46,7 +46,7 @@ Unit tests and system tests for the tournament module.
 
 ###Database Setup
 To create the tournament database in PostgreSQL, with its tables and views,
-run the following psql command on the command line.
+run the following `psql` command on the command line.
 ```Shell
 psql -f tournament.sql
 ```
@@ -54,7 +54,7 @@ psql -f tournament.sql
 
 ###Unit Tests
 Once the database has been successfully created,
-you can run the unit tests for the Python module with the following python command on the 
+you can run the unit tests for the Python module with the following `python` command on the 
 command line.
 ```Shell
 python tournament_test.py
@@ -71,8 +71,8 @@ tournament_test.simTournament(3)
 ``` 
 Once the simulation has finished you can view the player standings in a readable format
 by using the psql command line interpreter. Start the psql interpreter in another 
-command line window (or exit the python interpreter using Ctrl-D) by typing the `psql`
-command on the command line. Then enter the following commands in the psql interpreter 
+command line window, or exit the python interpreter using Ctrl-D. Then type the `psql`
+command on the command line. Next, enter the following commands in the psql interpreter 
 to connect to the tournament database and query the standings view.
 ```PLpgSQL
 \c tournament
@@ -90,7 +90,7 @@ with the highest ranking player listed first.
 ```
 To simulate a tournament with a random number of players and random match results, you can
 call the simTournament() function without any arguments. 
-So to simulate 3 random tournaments, you could do something like this in the python interpreter
+So, to simulate 3 random tournaments, you could do something like this in the python interpreter
 ```Python 
 import tournament_test
 for x in range(3):
@@ -98,7 +98,7 @@ for x in range(3):
 
 ``` 
 The simTournament() function will produce output similar to this.
-```Shell
+```
 INFO:root:Simulating a tournament with 36 players...
 INFO:root:Playing round 1
 INFO:root:Playing round 2
@@ -161,7 +161,8 @@ generates and returns a list of pairings according to the Swiss system.
 Each pairing is a tuple (id1, name1, id2, name2), giving the ID and name of 
 the paired players. 
 
-A typical use of the module to manage a tournament would look like the following.
+A typical use of the module, to manage a tournament, would look like the following
+ on the command line.
 ```Shell
 vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$ python
 Python 2.7.6 (default, Jun 22 2015, 18:00:18)
